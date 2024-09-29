@@ -57,12 +57,15 @@ export class Calculator {
 
   getDisplayNumber(number) {
     const stringNumber = number.toString();
+
+    // Splits the float number into two parts and assigns the integer part to integerDigits and the decimal part to decimalDigits
     const integerDigits = parseFloat(stringNumber.split(".")[0]);
     const decimalDigits = stringNumber.split(".")[1];
+
     let integerDisplay;
     if (isNaN(integerDigits)) {
       integerDisplay = "";
-    } else {
+    } else { // Helps with punctuating large numbers e.g, 3,999
       integerDisplay = integerDigits.toLocaleString("en", {maximumFractionDigits: 0});
     }
     if (decimalDigits != null) {
@@ -74,6 +77,8 @@ export class Calculator {
 
   updateDisplay() {
     this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+
+    // If the user has chained a calculation  
     if (this.operation !== undefined) {
       this.previousOperandTextElement.innerText = 
       `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
